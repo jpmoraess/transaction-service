@@ -23,10 +23,13 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+
 	// validation
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
-	//jackson
+	// jackson
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.8'
 }
 

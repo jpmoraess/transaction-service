@@ -1,4 +1,12 @@
 spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: transaction-service
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: latest
+      enable-auto-commit: true
   data:
     mongodb:
       uri: mongodb://admin:admin@localhost:27017
@@ -23,3 +31,7 @@ transaction:
 
 server:
   port: 8082
+
+events:
+  consumeTopic: transaction
+  returnTopic: transaction_extorno
