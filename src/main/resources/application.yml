@@ -8,3 +8,18 @@ spring:
 #      username: admin
 #      password: admin
 #      database: transaction
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, beans
+
+transaction:
+  validation:
+    enabled: false
+    banco: true
+    horario: true
+
+server:
+  port: 8082
