@@ -1,6 +1,7 @@
 package br.com.moraesit.transactionservice.events;
 
 import br.com.moraesit.transactionservice.domain.TransactionBusiness;
+import br.com.moraesit.transactionservice.dto.SituacaoEnum;
 import br.com.moraesit.transactionservice.dto.TransactionDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +10,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -51,6 +53,9 @@ public class TransactionConsumer {
 
     private TransactionDto getTransaction(String message) throws JsonProcessingException {
         TransactionDto transactionDto = objectMapper.readValue(message, TransactionDto.class);
+        if (Objects.isNull(transactionDto.getSituacao())) {
+            transactionDto.setSituacao(SituacaoEnum.NAO_ANALISADA);
+        }
         transactionDto.setData(LocalDateTime.now());
         return transactionDto;
     }

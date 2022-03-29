@@ -1,5 +1,6 @@
 package br.com.moraesit.transactionservice.domain;
 
+import br.com.moraesit.transactionservice.dto.Conta;
 import br.com.moraesit.transactionservice.dto.RequestTransactionDto;
 import br.com.moraesit.transactionservice.dto.TransactionDto;
 import br.com.moraesit.transactionservice.repository.TransactionRepository;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -34,6 +36,14 @@ public class TransactionBusiness {
     public void update(final TransactionDto transactionDto) {
         log.info("Atualizando transação: {}", transactionDto);
         transactionRepository.save(transactionDto);
+    }
+
+    public List<TransactionDto> findByConta(final Long codigoAgencia, final Long codigoConta) {
+        final Conta conta = Conta.builder()
+                .codigoAgencia(codigoAgencia)
+                .codigoConta(codigoConta)
+                .build();
+        return transactionRepository.findByConta(conta);
     }
 
     public void approveTransaction(final TransactionDto transactionEvent) {
